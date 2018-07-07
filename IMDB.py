@@ -44,11 +44,11 @@ class xunlian(db.Model):
 
 @app.route('/data/',methods=['GET'])
 def data():
-    ALL=xunlian.query.filter(xunlian.country=='USA').all()
+    ALL_country=xunlian.query.filter(xunlian.country=='USA').all()
     all_data={}
     ALLDATA=[]
-    while len(ALL)>0:
-        all_xl=ALL.pop()
+    while len(ALL_country)>0:
+        all_xl=ALL_country.pop()
         all_data['NAME']=all_xl.name
         ALLDATA.append(all_data)
         print(ALLDATA)
