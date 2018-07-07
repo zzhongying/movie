@@ -6,11 +6,11 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script>
-        d3.json("/data/",function(error,data)
+        d3.json("/tabs/",function(error,tabs)
             {
                 if(error)
                     console.log(error);
-                console.log(data);
+                console.log(tabs);
             }
         )
     </script>
