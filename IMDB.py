@@ -44,11 +44,11 @@ class xunlian(db.Model):
 
 @app.route('/data/',methods=['GET'])
 def data():
-    ALL_country=xunlian.query.filter(xunlian.country=='USA').all()
+    ALL=xunlian.query.filter(xunlian.country=='USA').all()
     all_data={}
     ALLDATA=[]
-    while len(ALL_country)>0:
-        all_xl=ALL_country.pop()
+    while len(ALL)>0:
+        all_xl=ALL.pop()
         all_data['NAME']=all_xl.name
         ALLDATA.append(all_data)
         print(ALLDATA)
@@ -56,37 +56,13 @@ def data():
 
     return jsonify(ALLDATA)
 
-@app.route('/tabs_data/',methods=['GET'])
-def tabs_data():
-    ALL_color = xunlian.query.filter(xunlian.color!=None).all()
-    ALL_Level = xunlian.query.filter(xunlian.level != None).all()
-    all_color = {}
-    ALLCOLOR = []
-    all_level = {}
-    ALLLEVEL = []
-    while len(ALL_color) > 0 and len(ALLLEVEL)>0:
-        all_c = ALL_color.pop()
-        all_color['COLOR'] = all_c.color
-        ALLCOLOR.append(all_color)
-        print(ALLCOLOR)
-
-        all_l=ALL_Level.pop()
-        all_level['LEVEL']=all_l.level
-        ALLLEVEL.append(all_level)
-        print(ALLLEVEL)
-
-        all_level={}
-        all_color = {}
-
-    return jsonify(ALLCOLOR),jsonify(ALLLEVEL)
-
-@app.route('/tabs/',methods=['GET'])
-def tabs():
-    return render_template('tabs.html')
-
 @app.route('/',methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route('/',methods=['GET'])
+def tabs():
+    return render_template('tabs.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
