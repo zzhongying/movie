@@ -56,13 +56,27 @@ def data():
 
     return jsonify(ALLDATA)
 
+@app.route('/tabs_data/',methods=['GET'])
+def tabs_data():
+    ALL_color = xunlian.query.filter(xunlian.color == 'color').all()
+    all_color = {}
+    ALLCOLOR = []
+    while len(ALL_color) > 0:
+        all_c = ALL_color.pop()
+        all_color['COLOR'] = all_c.color
+        ALLCOLOR.append(all_color)
+        print(ALLCOLOR)
+        all_color = {}
+
+    return jsonify(ALLCOLOR)
+
+@app.route('/tabs/',methods=['GET'])
+def tabs():
+    return render_template('tabs.html')
+
 @app.route('/',methods=['GET'])
 def index():
     return render_template('index.html')
-
-@app.route('/',methods=['GET'])
-def tabs():
-    return render_template('tabs.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
