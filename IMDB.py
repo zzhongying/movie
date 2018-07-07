@@ -58,17 +58,27 @@ def data():
 
 @app.route('/tabs_data/',methods=['GET'])
 def tabs_data():
-    ALL_color = xunlian.query.filter(xunlian.color == 'color').all()
+    ALL_color = xunlian.query.filter(xunlian.color!=None).all()
+    ALL_Level = xunlian.query.filter(xunlian.level != None).all()
     all_color = {}
     ALLCOLOR = []
-    while len(ALL_color) > 0:
+    all_level = {}
+    ALLLEVEL = []
+    while len(ALL_color) > 0 and len(ALLLEVEL)>0:
         all_c = ALL_color.pop()
         all_color['COLOR'] = all_c.color
         ALLCOLOR.append(all_color)
         print(ALLCOLOR)
+
+        all_l=ALL_Level.pop()
+        all_level['LEVEL']=all_l.level
+        ALLLEVEL.append(all_level)
+        print(ALLLEVEL)
+
+        all_level={}
         all_color = {}
 
-    return jsonify(ALLCOLOR)
+    return jsonify(ALLCOLOR),jsonify(ALLLEVEL)
 
 @app.route('/tabs/',methods=['GET'])
 def tabs():
