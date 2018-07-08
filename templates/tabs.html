@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>TABS</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/tabs.css" type="text/css">
 </head>
 
-<body>
+<body background="../static/img/firstbg.png">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">选项卡按钮</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
@@ -21,35 +20,35 @@
         <form>
             <div class="form-group">
             <label for="message-text" class="control-label">电影名称</label>
-            <textarea class="form-control"></textarea>
+             <input type="text" class="form-control" name="name">
             </div>
             <div class="form-group">
             <label for="recipient-name" class="control-label">导演</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" name="director">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">主演1</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <input type="text" class="form-control" name="act_1">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">主演2:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <input type="text" class="form-control" name="act_2">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">主演3</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <input type="text" class="form-control" name="act_3">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">电影类型</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <input type="text" class="form-control" name="type">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">投资数目</label>
-            <textarea class="form-control" id="message-text"></textarea>
+             <input type="text" class="form-control" name="invest">
             </div>
             <div class="form-group">
             <label for="message-text" class="control-label">剧情关键词</label>
-            <textarea class="form-control" id="message-text"></textarea>
+             <input type="text" class="form-control" name="ket_words">
             </div>
             <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -81,4 +80,8 @@
   </div>
 </div>
 </body>
+
+ <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </html>
