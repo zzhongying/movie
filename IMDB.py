@@ -11,9 +11,6 @@ import contextlib
 app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
-#db.create_all()
-
-
 
 @app.route('/data/',methods=['GET'])
 def data():
@@ -56,8 +53,9 @@ def tabs():
 
         return render_template('index.html')
 
-@app.route('/ball/',methods=['GET','POST'])
+@app.route('/ball/')
 def ball():
+
     return render_template('ball.html')
 
 

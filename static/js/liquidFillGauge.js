@@ -32,6 +32,7 @@ function liquidFillGaugeDefaultSettings(){
     };
 }
 
+//绑定
 function loadLiquidFillGauge(elementId, value, config) {
     if(config == null) config = liquidFillGaugeDefaultSettings();
 
@@ -267,3 +268,4 @@ function loadLiquidFillGauge(elementId, value, config) {
 
     return new GaugeUpdater();
 }
+
