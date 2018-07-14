@@ -1,16 +1,8 @@
-/*!
- * @license Open source under BSD 2-clause (http://choosealicense.com/licenses/bsd-2-clause/)
- * Copyright (c) 2015, Curtis Bratton
- * All rights reserved.
- *
- * Liquid Fill Gauge v1.1
- */
-
 //液态仪表细节设置
 function liquidFillGaugeDefaultSettings(){
     return {
-        minValue: 0, // 仪表最小值  ，可以从数据中传入
-        maxValue: 100, // 仪表最大值，可从数据中传入
+        minValue: 0, // 仪表最小值 ，从数据中传入
+        maxValue: 88888, // 仪表最大值，从数据中传入
         circleThickness: 0.05, //外圆的厚度作为其半径的一个百分比。
         circleFillGap: 0.05, // 外圆与波圈之间的间隙大小为外圆半径的百分比。
         circleColor: "#178BCA", //外圆的颜色。
@@ -56,7 +48,7 @@ function loadLiquidFillGauge(elementId, value, config) {
     var textPixels = (config.textSize*radius/2);       //文字像素
     var textFinalValue = parseFloat(value).toFixed(2);   //文字最终值
     var textStartValue = config.valueCountUp?config.minValue:textFinalValue;   //文字开始值
-    var percentText = config.displayPercent?"%":"";     //文字所占百分比
+    var percentText = config.displayPercent?"":"";     //文字所占百分比
     var circleThickness = config.circleThickness * radius;      //圆周厚度
     var circleFillGap = config.circleFillGap * radius;        //环形间隙
     var fillCircleMargin = circleThickness + circleFillGap;  //间隙+圆周厚度
@@ -268,4 +260,3 @@ function loadLiquidFillGauge(elementId, value, config) {
 
     return new GaugeUpdater();
 }
-

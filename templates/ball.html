@@ -3,12 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>BALL</title>
+    <link rel="stylesheet" href="../static/css/ball.css">
     <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
-    <script type="text/javascript" src="../static/js/liquidFillGauge.js"></script>
-    <script src="{{url_for('static',filename = 'js/liquidFillGauge.js')}}"></script>
-    <style>
-        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
-    </style>
+    <script type="text/javascript" src="../static/js/ball.js"></script>
+    <script src="{{url_for('static',filename = 'js/ball.js')}}"></script>
 </head>
 <body>
 <!--fillgauge1,2,3,4...分别表示位置。gauge1,2,3表示鼠标点击控制变化的位置-->
@@ -18,39 +16,40 @@
 </body>
 <script>
 
+  d3.json("/ball_data/",function (error,money_max) {
 
-    var config2 = liquidFillGaugeDefaultSettings();
-    config2.circleColor = "#178BCA";
-    config2.textColor = "#045681";
-    config2.waveTextColor = "#A4DBf8";
-    config2.waveColor = "#178BCA";
-    config2.circleThickness = 0.1;
-    config2.circleFillGap = 0.1;
-    config2.textVertPosition = 0.8;
-    config2.waveAnimateTime = 3000;
-    config2.waveHeight = 0.3;
-    config2.waveCount = 1;
-    var gauge3 = loadLiquidFillGauge("fillgauge3", 60.1, config2);
+       if(error)
+           console.log(error);
+       console.log(money_max);
+       var  config1 = liquidFillGaugeDefaultSettings();
+            config1.minValue=0;
+            config1.maxValue=10;
+            config1.circleColor = "#AA7D39";
+            config1.textColor = "#553300";
+            config1.waveTextColor = "#D4AB6A";
+            config1.waveColor = "#AA7D39";
+            config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+            config1.circleFillGap = 0.1;
+            config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+            config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+            config1.waveHeight = 0.3;
+            config1.waveCount = 1;
+        var gauge2 = loadLiquidFillGauge("fillgauge2", 6.7, config1);
 
-      var config1 = liquidFillGaugeDefaultSettings();
-    config1.circleColor = "#D4AB6A";
-    config1.textColor = "#553300";
-    config1.waveTextColor = "#805615";
-    config1.waveColor = "#AA7D39";
-    config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
-    config1.circleFillGap = 0.1;
-    config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
-    config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
-    config1.waveHeight = 0.3;
-    config1.waveCount = 1;
-    var gauge2 = loadLiquidFillGauge("fillgauge2", 30.1, config1);
+        var config2 = liquidFillGaugeDefaultSettings();
+            config2.maxValue=money_max[0];
+            config2.circleColor = "#178BCA";
+            config2.textColor = "#045681";
+            config2.waveTextColor = "#A4DBf8";
+            config2.waveColor = "#178BCA";
+            config2.circleThickness = 0.1;
+            config2.circleFillGap = 0.1;
+            config2.textVertPosition = 0.8;
+            config2.waveAnimateTime = 3000;
+            config2.waveHeight = 0.3;
+            config2.waveCount = 1;
+        var gauge3 = loadLiquidFillGauge("fillgauge3", 460505847, config2);
 
-    function NewValue(){
-        if(Math.random() > .5){
-            return Math.round(Math.random()*100);
-        } else {
-            return (Math.random()*100).toFixed(1);
-        }
-    }
+    })
 </script>
 </html>

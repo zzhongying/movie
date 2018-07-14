@@ -26,6 +26,24 @@ def data():
 
     return jsonify(ALLDATA)
 
+@app.route('/ball_data/')
+def ball_data():
+    ALL = xunlian.query.all()
+    Money=[]
+    money_max=[]
+    while len(ALL) > 0:
+        Ball=ALL.pop()
+        money=Ball.Box_office
+        if money=='':
+            money=0
+        money=int(money)
+        Money.append(money)
+    money_max.append(max(Money))
+    print(money_max)
+
+    return jsonify(money_max)
+
+
 @app.route('/tabs_data/',methods=['GET'])
 def tabs_data():
     Level_1=xunlian.query.filter(xunlian.level).distinct().all()
@@ -58,6 +76,10 @@ def ball():
 
     return render_template('ball.html')
 
+@app.route('/gauge/')
+def gauge():
+
+     return render_template('gauge.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

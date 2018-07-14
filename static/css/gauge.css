@@ -1,0 +1,102 @@
+   body {
+            font: 16px arial;
+            background-color: #F5FFFA;
+        }
+
+        .unselectable {
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* 内盘仪表的CSS格式 */
+        .gauge .domain {
+            stroke-width: 3px;
+            stroke:#363636;
+        }
+
+        .gauge .tick line {
+            stroke:#363636;
+            stroke-width: 3px;  /*高刻度的宽*/
+        }
+
+        .gauge line {
+            stroke: #363636;
+        }
+
+        .gauge .arc, .gauge .cursor {
+            opacity: 0;
+        }
+
+        .gauge .major {
+            fill:#363636;
+            font-size: 10px;
+            font-family: 'Play', verdana, sans-serif;
+            font-weight: bold;
+        }
+
+        .gauge .indicator {
+            stroke: #B22222;
+            fill: #000;
+            stroke-width: 4px;    /*指针的宽度*/
+
+        }
+
+         /* 外盘仪表的CSS格式 */
+        .gauge1 .domain {
+            stroke-width: 3px;
+            stroke: #363636;
+        }
+
+        .gauge1 .tick line {
+            stroke: #363636;
+            stroke-width: 3px;  /*高刻度的宽*/
+        }
+
+        .gauge1 line {
+            stroke: #363636;
+        }
+
+        .gauge1 .arc, .gauge1 .cursor {
+            opacity: 0;
+        }
+
+        .gauge1 .major {         /*刻度字体设置*/
+            fill: #363636;
+            font-size: 15px;
+            font-family: 'Play', verdana, sans-serif;
+            font-weight:bold;
+
+        }
+
+        .gauge1 .indicator {
+            stroke: #B22222;
+            fill: #000;
+            stroke-width: 4px;    /*指针的宽度*/
+
+        }
+
+        /* 内盘蓝色数字的样式 */
+        .segdisplay .on {
+            fill: #1874CD;
+
+        }
+
+        .segdisplay .off {
+            fill: #1874CD;
+            opacity: 0.15;
+        }
+
+        /* 外盘蓝色数字的样式 */
+          .segdisplay1 .on {
+            fill:#1874CD;
+
+        }
+
+        .segdisplay1 .off {
+            fill: #1874CD;
+            opacity: 0.15;
+        }
+
