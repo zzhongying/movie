@@ -39,7 +39,8 @@ def ball_data():
         money=int(money)
         Money.append(money)
     money_max.append(max(Money))
-    print(money_max)
+
+
 
     return jsonify(money_max)
 
@@ -73,7 +74,6 @@ def tabs():
 
 @app.route('/ball/')
 def ball():
-
     return render_template('ball.html')
 
 @app.route('/gauge/')

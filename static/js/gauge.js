@@ -11,11 +11,11 @@
         gauge.axis().orient("in")
                 .normalize(true)
                 .ticks(12)  //数字之间的刻度大小
-                .tickSubdivide(3)   //当前刻度与下一刻度之间的格挡个数
+                .tickSubdivide(2)   //当前刻度与下一刻度之间的格挡个数
                 .tickSize(10, 8, 10)
                 .tickPadding(10)   //数字距离刻度的距离
                 .scale(d3.scale.linear()
-                        .domain([0, 160])   //刻度范围
+                        .domain([0,15])   //刻度范围，投资级数
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
    var gauge1 = iopctrl.arcslider()
@@ -29,13 +29,13 @@
                 .tickSize(10, 8, 10)
                 .tickPadding(10)   //数字距离刻度的距离
                 .scale(d3.scale.linear()
-                        .domain([0, 160])   //刻度范围
+                        .domain([-5,10])   //刻度范围,回报率
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
 
    var segDisplay = iopctrl.segdisplay()
                 .width(80)  //蓝色数字的宽度
-                .digitCount(6)   //蓝色数字的位数
+                .digitCount(5)   //蓝色数字的位数
                 .negative(false)
                 .decimals(0);
 
@@ -46,7 +46,7 @@
 
    var segDisplay1 = iopctrl.segdisplay()
                 .width(80)  //蓝色数字的宽度
-                .digitCount(6)   //蓝色数字的位数
+                .digitCount(5)   //蓝色数字的位数
                 .negative(false)
                 .decimals(0);
 
@@ -64,7 +64,9 @@
                 .attr("class", "gauge1")
                 .call(gauge1);
 
-        segDisplay.value(866866);  //内盘蓝色数字的值
-        segDisplay1.value(233333);  //蓝色数字的值
-        gauge.value(100);   //指针当前指向的值
-        gauge1.value(50);   //指针当前指向的值
+      /*  if(segDisplay.value)*/
+
+        segDisplay.value(86686);  //内盘蓝色数字的值
+        segDisplay1.value(23333);  //外盘蓝色数字的值
+        gauge.value(6);   //内盘指针当前指向的值
+        gauge1.value(5);   //外盘指针当前指向的值
