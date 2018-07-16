@@ -45,7 +45,7 @@ function loadLiquidFillGauge(elementId, value, config) {
             .domain([0,100]);
     }
 
-    var textPixels = (config.textSize*radius/2);       //文字像素
+    var textPixels = (config.textSize*radius/3.5);       //文字像素
     var textFinalValue = parseFloat(value).toFixed(2);   //文字最终值
     var textStartValue = config.valueCountUp?config.minValue:textFinalValue;   //文字开始值
     var percentText = config.displayPercent?"":"";     //文字所占百分比

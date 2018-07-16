@@ -2,86 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TABS</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/tabs.css" type="text/css">
+    <title>电影票房及评分预测系统——欢迎</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/tabs.css') }}"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body background="../static/img/firstbg.png">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">选项卡按钮</button>
+<body background="{{ url_for('static',filename = 'img/firstbg.png') }}">
+<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+        id="Mbtn">
+    click here and start
+</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">请填入关键信息</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="form-group">
-            <label for="message-text" class="control-label">电影名称</label>
-             <input type="text" class="form-control" name="name">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">请填入关键信息</h4>
             </div>
-            <div class="form-group">
-            <label for="recipient-name" class="control-label">导演</label>
-            <input type="text" class="form-control" name="director">
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="name" class="control-label">电影名称</label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="director" class="control-label">导演</label>
+                        <input type="text" class="form-control" name="director" id="director">
+                    </div>
+                    <div class="form-group">
+                        <label for="act" class="control-label">主演</label>
+                        <input type="text" class="form-control" name="act" id="act" placeholder="主演姓名之间请用'/'分开,请填写三名演员">
+                    </div>
+                    <div class="form-group">
+                        <label for="act_2" class="control-label">电影时长</label>
+                        <input type="text" class="form-control" name="act_2" id="act_2" placeholder="单位：分钟">
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="control-label">电影类型</label>
+                        <input type="text" class="form-control" name="type" id="type" placeholder="类型之间请用空格分开">
+                    </div>
+                    <div class="form-group">
+                        <label for="invest" class="control-label">投资金额</label>
+                        <input type="text" class="form-control" name="invest" id="invest" placeholder="单位：万元">
+                    </div>
+                    <div class="form-group">
+                        <label for="key_words" class="control-label">剧情关键词</label>
+                        <input type="text" class="form-control" name="key_words" id="key_words"
+                               placeholder="关键词之间请用空格分开">
+                    </div>
+                    <div class="form-group">
+                        <label for="CBW" class="control-label">屏幕宽高比</label>
+                        <select class="form-control" name="screen" id="screen">
+                            <option value="1.18"> 1.18</option>
+                            <option value="1.33"> 1.33</option>
+                            <option value="1.37"> 1.37</option>
+                            <option value="1.5"> 1.5</option>
+                            <option value="1.66"> 1.66</option>
+                            <option value="1.75"> 1.75</option>
+                            <option value="1.78"> 1.78</option>
+                            <option value="1.85"> 1.85</option>
+                            <option value="2."> 2.0</option>
+                            <option value="2.22"> 2.2</option>
+                            <option value="BW"> 2.24</option>
+                            <option value="BW"> 2.35</option>
+                            <option value="BW"> 2.39</option>
+                            <option value="BW"> 2.4</option>
+                            <option value="BW"> 2.55</option>
+                            <option value="BW"> 2.76</option>
+                            <option value="BW"> 16.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CBW" class="control-label">电影色彩</label>
+                        <select class="form-control" name="CBW" id="CBW">
+                            <option value="BW">黑白</option>
+                            <option value="color">彩色</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="level" class="control-label">内容评级</label>
+                        <select class="form-control" name="level" id="level">
+                            <option value="Approved">Approved</option>
+                            <option value="G">G</option>
+                            <option value="GP">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                            <option value="NC-17">NC-17</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default">重置</button>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">主演1</label>
-            <input type="text" class="form-control" name="act_1">
-            </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">主演2:</label>
-            <input type="text" class="form-control" name="act_2">
-            </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">主演3</label>
-            <input type="text" class="form-control" name="act_3">
-            </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">电影类型</label>
-            <input type="text" class="form-control" name="type">
-            </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">投资数目</label>
-             <input type="text" class="form-control" name="invest">
-            </div>
-            <div class="form-group">
-            <label for="message-text" class="control-label">剧情关键词</label>
-             <input type="text" class="form-control" name="ket_words">
-            </div>
-            <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            电影色彩<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">黑白</a></li>
-            <li><a href="#">彩色</a></li>
-            </ul>
-            </div>
-            <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            内容评级<span class="caret"></span></button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">Approved</a></li>
-            <li><a href="#">G</a></li>
-            <li><a href="#">GP</a></li>
-            <li><a href="#">M</a></li>
-            <li><a href="#">NC-17</a></li>
-            </ul>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 </body>
 
- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<!--<script src="{{ url_for('static',filename = 'js/tabs.js') }}"></script>-->
 
 </html>
