@@ -20,7 +20,8 @@ function liquidFillGaugeDefaultSettings(){
         valueCountUp: true, // 如果为真，则显示值在加载后从0计数到其最终值。如果为false，则显示最终值。
         displayPercent: true, //如果为真，则在该值之后显示一%个符号。
         textColor: "#045681", // 当波不重叠时，值文本的颜色。
-        waveTextColor: "#A4DBf8" // 当波形重叠时，值文本的颜色。
+        waveTextColor: "#A4DBf8", // 当波形重叠时，值文本的颜色。
+        value:0
     };
 }
 
@@ -110,6 +111,8 @@ function loadLiquidFillGauge(elementId, value, config) {
         .innerRadius(gaugeCircleY(radius-circleThickness));
     gaugeGroup.append("path")
         .attr("d", gaugeCircleArc)
+        // .transition()
+        // .duration(2000)
         .style("fill", config.circleColor)
         .attr('transform','translate('+radius+','+radius+')');
 
