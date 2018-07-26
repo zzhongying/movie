@@ -45,11 +45,11 @@ d_type = [{'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_
           {'en': 'Crime', 'zh': '犯罪', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CCCC33',
            'textColor': '#556B2F', 'waveTextColor': '#FFFAFA', 'waveColor': '#CCCC33'},
           ]
+table_massage={}
+enter={}
 
 @app.route('/data/', methods=['GET'])
 def data():
-    # com = adv = fan = mys = thr = doc = war = wes = rom = dra = hor = act = sci = mus = fam = cri = 0
-    # mytype = []
     ALL = xunlian.query.all()
     money_adv= []
     money_com=[]
@@ -89,7 +89,6 @@ def data():
             if count == d_type[0]["en"]:
                 d_type[0]["like"] += like
                 money_adv.append(money)
-                #print(max(money_adv))
             elif count == d_type[1]["en"]:
                 d_type[1]["like"] += like
                 money_com.append(money)
@@ -136,6 +135,7 @@ def data():
                 d_type[15]["like"] += like
                 money_cri.append(money)
 
+    #取各种类型中的票房最大值和最小值
     d_type[0]['money_max']=max(money_adv)
     d_type[1]['money_max'] = max(money_com)
     d_type[2]['money_max'] = max(money_fan)
@@ -173,23 +173,6 @@ def data():
     return jsonify(d_type)
 
 
-@app.route('/ball_data/')
-def ball_data():
-    ALL = xunlian.query.all()
-    Money=[]
-    money_max=[]
-    while len(ALL) > 0:
-        Ball=ALL.pop()
-        money=Ball.Box_office
-        if money=='':
-            money=0
-        money=int(money)
-        Money.append(money)
-    money_max.append(max(Money))
-
-    return jsonify(money_max)
-
-
 @app.route('/tabs_data/',methods=['GET'])
 def tabs_data():
     Level_1=xunlian.query.filter(xunlian.level).distinct().all()
@@ -197,11 +180,9 @@ def tabs_data():
     print(l_1)
     return render_template('index.html')
 
-table_massage={}
-enter={}
+#返回tabs页面中的内容
 @app.route('/massage/')
 def massage():
-    #print(enter)
     #print(table_massage)
     return jsonify(table_massage)
 
@@ -216,7 +197,6 @@ def tabs():
         table_massage['director'] = request.form.get('director')
         table_massage['act'] = request.form.get('act').split("/")
         table_massage['type'] = request.form.get('type').split()
-        #enter['type']=request.form.get('type').split()
         table_massage['invest'] = request.form.get('invest')
         table_massage['key_word'] = request.form.get('key_words').split()
         table_massage['CBW'] = request.form.get('CBW')
@@ -263,4 +243,4 @@ def gauge():
      return render_template('gauge.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=9000)
