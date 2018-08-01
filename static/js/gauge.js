@@ -1,4 +1,10 @@
-   var svg = d3.select("#speedometer")
+
+     d3.json("/massage/", function (error, massage) {
+
+          if (error)
+                console.log(error);
+            console.log(massage);
+    var svg = d3.select("#speedometer")
                 .append("svg:svg")
                 .attr("width", 500)
                 .attr("height", 500);
@@ -15,7 +21,7 @@
                 .tickSize(10, 8, 10)
                 .tickPadding(10)   //数字距离刻度的距离
                 .scale(d3.scale.linear()
-                        .domain([0,15])   //刻度范围，投资级数
+                        .domain([0,15])   //刻度范围，投资级数，内圈
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
    var gauge1 = iopctrl.arcslider()
@@ -29,7 +35,7 @@
                 .tickSize(10, 8, 10)
                 .tickPadding(10)   //数字距离刻度的距离
                 .scale(d3.scale.linear()
-                        .domain([-5,10])   //刻度范围,回报率
+                        .domain([-5,10])   //刻度范围,回报率,外圈
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
 
@@ -65,8 +71,10 @@
                 .call(gauge1);
 
       /*  if(segDisplay.value)*/
-
+        //console.log(massage.invest);
         segDisplay.value(86686);  //内盘蓝色数字的值
         segDisplay1.value(23333);  //外盘蓝色数字的值
-        gauge.value(6);   //内盘指针当前指向的值
-        gauge1.value(5);   //外盘指针当前指向的值
+        gauge.value(massage.invest/10000);   //内盘指针当前指向的值，投资技术
+        gauge1.value(5);   //外盘指针当前指向的值,回报率
+
+     });

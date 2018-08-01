@@ -6,6 +6,7 @@ function liquidFillGaugeDefaultSettings() {
         circleThickness: 0.05, //外圆的厚度作为其半径的一个百分比。
         circleFillGap: 0.05, // 外圆与波圈之间的间隙大小为外圆半径的百分比。
         circleColor: "#20B2AA", //外圆的颜色。
+        nextcircleColor:"#ca2e33",
         waveHeight: 0.05, //波高作为波圈半径的百分比。
         waveCount: 1, // 波圈每宽度的全波数。
         waveRiseTime: 1000, // 波浪从0上升到最后高度的毫秒时间。
@@ -13,14 +14,17 @@ function liquidFillGaugeDefaultSettings() {
         waveRise: true, //控制波浪应该从0上升到它的全高，还是从它的全高开始。
         waveHeightScaling: true, //控制波大小缩放在低和高填充百分比。当为真时，波高达到最大值，填充量为50%，最小填充量为0%和100%。这有助于防止波浪在接近最小或最大填充时使波浪圈看起来完全满或空。
         waveAnimate: true, // 控制波浪滚动或静止
-        waveColor: "#ca2e33", // 填充波的颜色。#178BCA
+        waveColor: "#CDAA7D", // 填充波的颜色。#178BCA
+        nextwaveColor:"#4EEE94",
         waveOffset: 0, //最初抵消波浪的量。0＝无偏移。1 =一个完整波的偏移。
         textVertPosition: .5, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
         textSize: 1, // 在波圈中显示的文本的相对高度。1＝50%
         valueCountUp: true, // 如果为真，则显示值在加载后从0计数到其最终值。如果为false，则显示最终值。
         displayPercent: true, //如果为真，则在该值之后显示一%个符号。
         textColor: "#812572", // 当波不重叠时，值文本的颜色。  #045681
+        nexttextColor: "#ca2e33",
         waveTextColor: "#f8e323", // 当波形重叠时，值文本的颜色。#A4DBf8
+        nextwaveTextColor:"#812572",
         value: 0
     };
 }
@@ -117,7 +121,7 @@ function loadLiquidFillGauge(elementId, value, config) {
         .innerRadius(gaugeCircleY(radius - circleThickness));
     var wcircle = gaugeGroup.append("path")
         .attr("d", gaugeCircleArc)
-        .style("fill", config.circleColor)
+        .style("fill", config.circleColor)             //外圆颜色
         .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
     //波不重叠的文本。
@@ -128,6 +132,7 @@ function loadLiquidFillGauge(elementId, value, config) {
         .attr("font-size", textPixels + "px")
         .style("fill", config.textColor)
         .attr('transform', 'translate(' + radius + ',' + textRiseScaleY(config.textVertPosition) + ')');
+
 
     // 削波面积。
     var clipArea = d3.svg.area()
@@ -150,12 +155,17 @@ function loadLiquidFillGauge(elementId, value, config) {
 
     // 内圈与剪辑波相连。
     var fillCircleGroup = gaugeGroup.append("g")
-        .attr("clip-path", "url(#clipWave" + elementId + ")");
+        .attr("clip-path", "url(#clipWave" + elementId + ")")
+        .attr("fill", config.waveColor);    //波浪颜色
     fillCircleGroup.append("circle")
         .attr("cx", radius)
         .attr("cy", radius)
-        .attr("r", fillCircleRadius)
-        .attr("fill", config.waveColor);
+        .attr("r", fillCircleRadius);
+
+
+    // fillCircleGroup.transition()
+    //     .duration(config.waveRiseTime)
+    //     .attr("fill",config.nextwaveColor);
 
     // 波浪重叠的文字。
     var text2 = fillCircleGroup.append("text")
@@ -174,17 +184,20 @@ function loadLiquidFillGauge(elementId, value, config) {
                 this.textContent = textRounder(i(t)) + percentText;
             }
         };
+
         text1.transition()
             .duration(config.waveRiseTime)
             .tween("text", textTween);
+
         text2.transition()
             .duration(config.waveRiseTime)
-            .tween("text", textTween);
+            .tween("text", textTween)
     }
 
     //使波浪上升。波和波组是分开的，从而可以独立地控制水平和垂直运动。
     var waveGroupXPosition = fillCircleMargin + fillCircleRadius * 2 - waveClipWidth;
-    if (config.waveRise) {
+    if (config.waveRise)
+    {
         waveGroup.attr('transform', 'translate(' + waveGroupXPosition + ',' + waveRiseScale(0) + ')')
             .transition()
             .duration(config.waveRiseTime)
@@ -210,6 +223,7 @@ function loadLiquidFillGauge(elementId, value, config) {
             });
     }
 
+    //更新函数
     function GaugeUpdater() {
         this.update = function (value) {
             var newFinalValue = parseFloat(value).toFixed(2);
@@ -236,20 +250,26 @@ function loadLiquidFillGauge(elementId, value, config) {
             //
             text1.transition()
                 .duration(config.waveRiseTime)
-                .tween("text", textTween);
+                .tween("text", textTween)
+                .style("fill",config.nexttextColor);
+
             text2.transition()
                 .duration(config.waveRiseTime)
-                .tween("text", textTween);
+                .tween("text", textTween)
+                .attr("fill",config.nextwaveTextColor);
 
-            // wcircle.transition()
-            //     .duration(config.waveRiseTime)
-            //     .ease('linear')
-            //     .attr("fill", config.circleColor);
+            wcircle.transition()
+                .duration(config.waveRiseTime)
+                .style("fill",config.nextcircleColor);
+
+            fillCircleGroup.transition()
+                 .duration(config.waveRiseTime)
+                 .attr("fill",config.nextwaveColor);
 
             var fillPercent = Math.max(config.minValue, Math.min(config.maxValue, value)) / config.maxValue;
             var waveHeight = fillCircleRadius * waveHeightScale(fillPercent * 100);
             var waveRiseScale = d3.scale.linear()
-            // 剪辑区域大小是填充圆的高度+波高，所以我们定位剪辑波。
+            // 剪辑区域大小是填充圆的高度+波高，所以定位剪辑波。
             // 当它在0%时，它将完全与填充圆重叠，并且将完全覆盖填充物。
             // 100%的圆
                 .range([(fillCircleMargin + fillCircleRadius * 2 + waveHeight), (fillCircleMargin - waveHeight)])
@@ -292,9 +312,6 @@ function loadLiquidFillGauge(elementId, value, config) {
                 .duration(config.waveRiseTime)
                 .attr('transform', 'translate(' + waveGroupXPosition + ',' + newHeight + ')')
 
-            // color_c.transition()
-            //     .duration(config.waveRiseTime)
-            //     .style("fill", config.waveColor);
         }
     }
 
