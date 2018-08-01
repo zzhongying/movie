@@ -4,408 +4,370 @@
     <meta charset="UTF-8">
     <title>BALL</title>
     <link rel="stylesheet" href="../static/css/ball.css">
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
     <script type="text/javascript" src="../static/js/ball.js"></script>
     <script src="{{url_for('static',filename = 'js/ball.js')}}"></script>
 </head>
 <body>
 <!--fillgauge1,2,3,4...分别表示位置。gauge1,2,3表示鼠标点击控制变化的位置-->
-<svg id="fillgauge1" width="19%" height="200"></svg>
-<svg id="fillgauge2" width="19%" height="200"></svg>
-
+<svg id="fillgauge1" width="19%" height="200" ></svg>
+<svg id="fillgauge2" width="19%" height="200" ></svg>
+<!--<svg id="fillgauge3" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge4" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge5" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge6" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge7" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge8" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge9" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge10" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge11" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge12" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge13" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge14" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge15" width="19%" height="200" ></svg>-->
+<!--<svg id="fillgauge16" width="19%" height="200" ></svg>-->
 
 </body>
 <script>
 
-    d3.json("/data/", function (error, money_tp) {
+  d3.json("/data/",function (error,money_tp) {
 
-        if (error)
+       if(error)
+           console.log(error);
+       console.log(money_tp);
+        d3.json("/massage/",function (error,enter_ty) {
+        if(error)
             console.log(error);
-        console.log(money_tp);
-        d3.json("/massage/", function (error, enter_ty) {
-            if (error)
-                console.log(error);
-            console.log(enter_ty);
+        console.log(enter_ty);
 
-            console.log(enter_ty.type[0]);
-            var len = enter_ty.type.length;
-            console.log(len);
+//        console.log(enter_ty.type[0]);
+        var len=enter_ty.type.length;
+        console.log(len);
+        var xh=new array();
+        var p=0;
+        for (var j=0;j<len;j++)
+        {
+                for(var k=0;k<16;k++)
+                {
+                    if(enter_ty.type[j]==money_tp[k].zh)
+                    {
+                        xh[p]=k;
+                        p++;
+                        //喜剧
+                        var  config1 = liquidFillGaugeDefaultSettings();
+                        config1.minValue=money_tp[xh[p]]['money_min'];
+                        config1.maxValue=money_tp[xh[p]]['money_max'];
+                        config1.circleColor = money_tp[xh[p]]['circleColor'];
+                        config1.textColor = money_tp[xh[p]]['textColor'];
+                        config1.waveTextColor = money_tp[xh[p]]['waveTextColor'];
+                        config1.waveColor = money_tp[xh[p]]['waveColor'];
+                        config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+                        config1.circleFillGap = 0.1;
+                        config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+                        config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+                        config1.waveHeight = 0.3;
+                        config1.waveCount = 1;
+                        config1.value=233333333;
 
-//         for (var j=0;j<len;j++)
-//         {
-//                 for(var k=0;k<16;k++)
-//                 {
-//                     if(enter_ty.type[j]==money_tp[k].zh)
-//                     {
-//                         //喜剧
-//                         var  config1 = liquidFillGaugeDefaultSettings();
-//                         config1.minValue=money_tp[k]['money_min'];
-//                         config1.maxValue=money_tp[k]['money_max'];
-//                         config1.circleColor = money_tp[k]['circleColor'];
-//                         config1.textColor = money_tp[k]['textColor'];
-//                         config1.waveTextColor = money_tp[k]['waveTextColor'];
-//                         config1.waveColor = money_tp[k]['waveColor'];
-//                         config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
-//                         config1.circleFillGap = 0.1;
-//                         config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
-//                         config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
-//                         config1.waveHeight = 0.3;
-//                         config1.waveCount = 1;
-//                         config1.value=233333333;
-//
-//                      // var gauge1 = loadLiquidFillGauge("fillgauge1",config1.value, config1);
-//                      // gauge1.transition()
-//                      //     .duration(2000)   //过度时间
-//                      //     .attr("config1.minValue",money_tp[k+1]['money_min'])
-//                      //     .attr("config1.maxValue",money_tp[k+1]['money_max'])
-//                      //     .attr("config1.textColor",money_tp[k+1]['textColor'])
-//                      //     .attr("config1.waveTextColor",money_tp[k+1]['waveTextColor'])
-//                      //     .attr("config1.waveColor",money_tp[k+1]['waveColor']);
-//
-//                     }
-//
-//                 }
-//
-// //
-// //              if(enter_ty.type[j]=='冒险')
-// //            {
-// //                 //冒险
-// //                var config2 = liquidFillGaugeDefaultSettings();
-// //                    config2.minValue=money_tp[1]['money_min'];
-// //                    config2.maxValue=money_tp[1]['money_max'];
-// //                    config2.circleColor = money_tp[1]['circleColor'];
-// //                    config2.textColor = money_tp[1]['textColor'];
-// //                    config2.waveTextColor =  money_tp[1]['waveTextColor'];
-// //                    config2.waveColor =money_tp[1]['waveColor'];
-// //                    config2.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
-// //                    config2.circleFillGap = 0.1;
-// //                    config2.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
-// //                    config2.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
-// //                    config2.waveHeight = 0.3;
-// //                    config2.waveCount = 1;
-// //
-// //                var gauge2 = loadLiquidFillGauge("fillgauge2", 260505847, config2);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='幻想')
-// //            {
-// //                 //幻想
-// //               var config3 = liquidFillGaugeDefaultSettings();
-// //                    config3.minValue=money_tp[2]['money_min'];
-// //                    config3.maxValue=money_tp[2]['money_max'];
-// //                    config3.circleColor = money_tp[2]['circleColor'];
-// //                    config3.textColor = money_tp[2]['textColor'];;
-// //                    config3.waveTextColor =  money_tp[2]['waveTextColor'];
-// //                    config3.waveColor =money_tp[2]['waveColor'];
-// //                    config3.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
-// //                    config3.circleFillGap = 0.1;
-// //                    config3.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
-// //                    config3.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
-// //                    config3.waveHeight = 0.3;
-// //                    config3.waveCount = 1;
-// //                var gauge3 = loadLiquidFillGauge("fillgauge3", 60, config3);
-// //            }
-// //             if(enter_ty.type[j]=='悬念')
-// //            {
-// //                //悬念
-// //                 var config4 = liquidFillGaugeDefaultSettings();
-// //                    config4.minValue=money_tp[3]['money_min'];
-// //                    config4.maxValue=money_tp[3]['money_max'];
-// //                    config4.circleColor = money_tp[3]['circleColor'];
-// //                    config4.textColor = money_tp[3]['textColor'];;
-// //                    config4.waveTextColor =  money_tp[3]['waveTextColor'];
-// //                    config4.waveColor =money_tp[3]['waveColor'];
-// //                    config4.circleThickness = 0.1;
-// //                    config4.circleFillGap = 0.1;
-// //                    config4.textVertPosition = 0.8;
-// //                    config4.waveAnimateTime = 3000;
-// //                    config4.waveHeight = 0.3;
-// //                    config4.waveCount = 1;
-// //                var gauge4 = loadLiquidFillGauge("fillgauge4", 260505841, config4);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='惊悚')
-// //            {
-// //                 //惊悚
-// //                   var config5 = liquidFillGaugeDefaultSettings();
-// //                    config5.minValue=money_tp[4]['money_min'];
-// //                    config5.maxValue=money_tp[4]['money_max'];
-// //                    config5.circleColor = money_tp[4]['circleColor'];
-// //                    config5.textColor = money_tp[4]['textColor'];
-// //                    config5.waveTextColor =  money_tp[4]['waveTextColor'];
-// //                    config5.waveColor =money_tp[4]['waveColor'];
-// //                    config5.circleThickness = 0.1;
-// //                    config5.circleFillGap = 0.1;
-// //                    config5.textVertPosition = 0.8;
-// //                    config5.waveAnimateTime = 3000;
-// //                    config5.waveHeight = 0.3;
-// //                    config5.waveCount = 1;
-// //                var gauge5 = loadLiquidFillGauge("fillgauge5", 260505851, config5);
-// //            }
-// //             if(enter_ty.type[j]=='记录')
-// //            {
-// //                 //记录
-// //                var config6 = liquidFillGaugeDefaultSettings();
-// //                    config6.minValue=money_tp[5]['money_min'];
-// //                    config6.maxValue=money_tp[5]['money_max'];
-// //                    config6.circleColor = money_tp[5]['circleColor'];
-// //                    config6.textColor = money_tp[5]['textColor'];
-// //                    config6.waveTextColor =  money_tp[5]['waveTextColor'];
-// //                    config6.waveColor =money_tp[5]['waveColor'];
-// //                    config6.circleThickness = 0.1;
-// //                    config6.circleFillGap = 0.1;
-// //                    config6.textVertPosition = 0.8;
-// //                    config6.waveAnimateTime = 3000;
-// //                    config6.waveHeight = 0.3;
-// //                    config6.waveCount = 1;
-// //                var gauge6 = loadLiquidFillGauge("fillgauge6", 260505851, config6);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='战争')
-// //            {
-// //                //战争
-// //                var config7 = liquidFillGaugeDefaultSettings();
-// //                    config7.minValue=money_tp[6]['money_min'];
-// //                    config7.maxValue=money_tp[6]['money_max'];
-// //                    config7.circleColor = money_tp[6]['circleColor'];
-// //                    config7.textColor = money_tp[6]['textColor'];
-// //                    config7.waveTextColor =  money_tp[6]['waveTextColor'];
-// //                    config4.waveColor =money_tp[6]['waveColor'];
-// //                    config7.circleThickness = 0.1;
-// //                    config7.circleFillGap = 0.1;
-// //                    config7.textVertPosition = 0.8;
-// //                    config7.waveAnimateTime = 3000;
-// //                    config7.waveHeight = 0.3;
-// //                    config7.waveCount = 1;
-// //                var gauge7 = loadLiquidFillGauge("fillgauge7", 260505851, config7);
-// //            }
-// //             if(enter_ty.type[j]=='西部')
-// //            {
-// //                 //西部
-// //                 var config8 = liquidFillGaugeDefaultSettings();
-// //                     config8.minValue=money_tp[7]['money_min'];
-// //                    config8.maxValue=money_tp[7]['money_max'];
-// //                    config8.circleColor = money_tp[7]['circleColor'];
-// //                    config8.textColor = money_tp[7]['textColor'];
-// //                    config8.waveTextColor =  money_tp[7]['waveTextColor'];
-// //                    config8.waveColor =money_tp[7]['waveColor'];
-// //                    config8.circleThickness = 0.1;
-// //                    config8.circleFillGap = 0.1;
-// //                    config8.textVertPosition = 0.8;
-// //                    config8.waveAnimateTime = 3000;
-// //                    config8.waveHeight = 0.3;
-// //                    config8.waveCount = 1;
-// //                var gauge8 = loadLiquidFillGauge("fillgauge8", 260505851, config8);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='爱情')
-// //            {
-// //                //爱情
-// //                 var config9 = liquidFillGaugeDefaultSettings();
-// //                    config9.minValue=money_tp[8]['money_min'];
-// //                    config9.maxValue=money_tp[8]['money_max'];
-// //                    config9.circleColor = money_tp[8]['circleColor'];
-// //                    config9.textColor = money_tp[8]['textColor'];
-// //                    config9.waveTextColor =  money_tp[8]['waveTextColor'];
-// //                    config9.waveColor =money_tp[8]['waveColor'];
-// //                    config9.circleThickness = 0.1;
-// //                    config9.circleFillGap = 0.1;
-// //                    config9.textVertPosition = 0.8;
-// //                    config9.waveAnimateTime = 3000;
-// //                    config9.waveHeight = 0.3;
-// //                    config9.waveCount = 1;
-// //                var gauge9 = loadLiquidFillGauge("fillgauge9", 260505851, config9);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='剧情')
-// //            {
-// //                //剧情
-// //                 var config10 = liquidFillGaugeDefaultSettings();
-// //                     config10.minValue=money_tp[9]['money_min'];
-// //                    config10.maxValue=money_tp[9]['money_max'];
-// //                    config10.circleColor = money_tp[9]['circleColor'];
-// //                    config10.textColor = money_tp[9]['textColor'];
-// //                    config10.waveTextColor =  money_tp[9]['waveTextColor'];
-// //                    config10.waveColor =money_tp[9]['waveColor'];
-// //                    config10.circleThickness = 0.1;
-// //                    config10.circleFillGap = 0.1;
-// //                    config10.textVertPosition = 0.8;
-// //                    config10.waveAnimateTime = 3000;
-// //                    config10.waveHeight = 0.3;
-// //                    config10.waveCount = 1;
-// //                var gauge10 = loadLiquidFillGauge("fillgauge10", 260505851, config10);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='恐怖')
-// //            {
-// //                //恐怖
-// //                 var config11 = liquidFillGaugeDefaultSettings();
-// //                    config11.minValue=money_tp[10]['money_min'];
-// //                    config11.maxValue=money_tp[10]['money_max'];
-// //                    config11.circleColor = money_tp[10]['circleColor'];
-// //                    config11.textColor = money_tp[10]['textColor'];
-// //                    config11.waveTextColor =  money_tp[10]['waveTextColor'];
-// //                    config11.waveColor =money_tp[10]['waveColor'];
-// //                    config11.circleThickness = 0.1;
-// //                    config11.circleFillGap = 0.1;
-// //                    config11.textVertPosition = 0.8;
-// //                    config11.waveAnimateTime = 3000;
-// //                    config11.waveHeight = 0.3;
-// //                    config11.waveCount = 1;
-// //                var gauge11 = loadLiquidFillGauge("fillgauge11", 260505851, config11);
-// //            }
-// //             if(enter_ty.type[j]=='动作')
-// //            {
-// //                 //动作
-// //                 var config12 = liquidFillGaugeDefaultSettings();
-// //                     config12.minValue=money_tp[11]['money_min'];
-// //                    config12.maxValue=money_tp[11]['money_max'];
-// //                    config12.circleColor = money_tp[11]['circleColor'];
-// //                    config12.textColor = money_tp[11]['textColor'];
-// //                    config12.waveTextColor =  money_tp[11]['waveTextColor'];
-// //                    config12.waveColor =money_tp[11]['waveColor'];
-// //                    config12.circleThickness = 0.1;
-// //                    config12.circleFillGap = 0.1;
-// //                    config12.textVertPosition = 0.8;
-// //                    config12.waveAnimateTime = 3000;
-// //                    config12.waveHeight = 0.3;
-// //                    config12.waveCount = 1;
-// //                var gauge12 = loadLiquidFillGauge("fillgauge12", 260505851, config12);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='科幻')
-// //            {
-// //                 // 科幻
-// //                 var config13 = liquidFillGaugeDefaultSettings();
-// //                    config13.minValue=money_tp[12]['money_min'];
-// //                    config13.maxValue=money_tp[12]['money_max'];
-// //                    config13.circleColor = money_tp[12]['circleColor'];
-// //                    config13.textColor = money_tp[12]['textColor'];
-// //                    config13.waveTextColor =  money_tp[12]['waveTextColor'];
-// //                    config13.waveColor =money_tp[12]['waveColor'];
-// //                    config13.circleThickness = 0.1;
-// //                    config13.circleFillGap = 0.1;
-// //                    config13.textVertPosition = 0.8;
-// //                    config13.waveAnimateTime = 3000;
-// //                    config13.waveHeight = 0.3;
-// //                    config13.waveCount = 1;
-// //                var gauge13 = loadLiquidFillGauge("fillgauge13", 260505851, config13);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='音乐')
-// //            {
-// //                //  音乐
-// //                 var config14 = liquidFillGaugeDefaultSettings();
-// //                     config14.minValue=money_tp[13]['money_min'];
-// //                    config14.maxValue=money_tp[13]['money_max'];
-// //                    config14.circleColor = money_tp[13]['circleColor'];
-// //                    config14.textColor = money_tp[13]['textColor'];
-// //                    config14.waveTextColor =  money_tp[13]['waveTextColor'];
-// //                    config14.waveColor =money_tp[13]['waveColor'];
-// //                    config14.circleThickness = 0.1;
-// //                    config14.circleFillGap = 0.1;
-// //                    config14.textVertPosition = 0.8;
-// //                    config14.waveAnimateTime = 3000;
-// //                    config14.waveHeight = 0.3;
-// //                    config14.waveCount = 1;
-// //                var gauge14 = loadLiquidFillGauge("fillgauge14", 260505851, config14);
-// //            }
-// //             if(enter_ty.type[j]=='家庭')
-// //            {
-// //                 //家庭
-// //                 var config15 = liquidFillGaugeDefaultSettings();
-// //                    config15.minValue=money_tp[14]['money_min'];
-// //                    config15.maxValue=money_tp[14]['money_max'];
-// //                    config15.circleColor = money_tp[14]['circleColor'];
-// //                    config15.textColor = money_tp[14]['textColor'];
-// //                    config15.waveTextColor =  money_tp[14]['waveTextColor'];
-// //                    config15.waveColor =money_tp[14]['waveColor'];
-// //                    config15.circleThickness = 0.1;
-// //                    config15.circleFillGap = 0.1;
-// //                    config15.textVertPosition = 0.8;
-// //                    config15.waveAnimateTime = 3000;
-// //                    config15.waveHeight = 0.3;
-// //                    config15.waveCount = 1;
-// //                var gauge15 = loadLiquidFillGauge("fillgauge15", 260505851, config15);
-// //
-// //            }
-// //             if(enter_ty.type[j]=='犯罪')
-// //            {
-// //                //犯罪
-// //                 var config16 = liquidFillGaugeDefaultSettings();
-// //                     config16.minValue=money_tp[15]['money_min'];
-// //                    config16.maxValue=money_tp[15]['money_max'];
-// //                    config16.circleColor = money_tp[15]['circleColor'];
-// //                    config16.textColor = money_tp[15]['textColor'];
-// //                    config16.waveTextColor =  money_tp[15]['waveTextColor'];
-// //                    config16.waveColor =money_tp[15]['waveColor'];
-// //                    config16.circleThickness = 0.1;
-// //                    config16.circleFillGap = 0.1;
-// //                    config16.textVertPosition = 0.8;
-// //                    config16.waveAnimateTime = 3000;
-// //                    config16.waveHeight = 0.3;
-// //                    config16.waveCount = 1;
-// //                var gauge16 = loadLiquidFillGauge("fillgauge16", 260505851, config16);
-// //            }
-//         }
-            var i = 0;
-            test = [200000000,100000000];
-            var config1 = liquidFillGaugeDefaultSettings();
-            // var chart = loadLiquidFillGauge("fillgauge1", config1.value, config1);
 
-            function action() {
-                if (i < len) {
-                    for (var k = 0; k < 16; k++) {
-                        if (enter_ty.type[i] == money_tp[k].zh) {
-                            // console.log( config1.value);
-                            //喜剧
-                            config1.minValue = money_tp[k]['money_min'];
-                            config1.maxValue = money_tp[k]['money_max'];
-                            config1.circleColor = money_tp[k]['circleColor'];
-                            config1.textColor = money_tp[k]['textColor'];
-                            config1.waveTextColor = money_tp[k]['waveTextColor'];
-                            config1.waveColor = money_tp[k]['waveColor'];
-                            config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
-                            config1.circleFillGap = 0.1;
-                            config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
-                            config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
-                            config1.waveHeight = 0.3;
-                            config1.waveCount = 1;
-                            config1.value = test[i];
+//                        gauge1.transition()
+//                             .duration(2000)   //过度时间
+//                             .attr("config1.minValue",money_tp[p+1]['money_min'])
+//                             .attr("config1.maxValue",money_tp[p+1]['money_max'])
+//                             .attr("config1.textColor",money_tp[p+1]['textColor'])
+//                             .attr("config1.waveTextColor",money_tp[p+1]['waveTextColor'])
+//                             .attr("config1.waveColor",money_tp[p+1]['waveColor']);
 
-                            // var gauge1 = loadLiquidFillGauge("fillgauge1",config1.value, config1);
-                            // gauge1.transition()
-                            //     .duration(2000)   //过度时间
-                            //     .attr("config1.minValue",money_tp[k+1]['money_min'])
-                            //     .attr("config1.maxValue",money_tp[k+1]['money_max'])
-                            //     .attr("config1.textColor",money_tp[k+1]['textColor'])
-                            //     .attr("config1.waveTextColor",money_tp[k+1]['waveTextColor'])
-                            //     .attr("config1.waveColor",money_tp[k+1]['waveColor']);
-
-                        }
+                     var gauge1 = loadLiquidFillGauge("fillgauge1",config1.value, config1);
 
                     }
-                    // var gauge1 = loadLiquidFillGauge("fillgauge1",config1.value, config1);
-                    // chart.update(config1.value)
+
                 }
-                i++;
-                if (i == len) {
-                    i = 0;
-                }
-                // setTimeout(action(),4000);
 
-            }
-            action();
-            var chart = loadLiquidFillGauge("fillgauge1", config1.value, config1);
-
-
-            // loadLiquidFillGauge("fillgauge1", config1.value, config1);
-            setInterval(function () {
-                console.log(config1.value);
-                    action();
-                    chart.update(config1.value)
-            }, 5000);
+//
+//              if(enter_ty.type[j]=='冒险')
+//            {
+//                 //冒险
+//                var config2 = liquidFillGaugeDefaultSettings();
+//                    config2.minValue=money_tp[1]['money_min'];
+//                    config2.maxValue=money_tp[1]['money_max'];
+//                    config2.circleColor = money_tp[1]['circleColor'];
+//                    config2.textColor = money_tp[1]['textColor'];
+//                    config2.waveTextColor =  money_tp[1]['waveTextColor'];
+//                    config2.waveColor =money_tp[1]['waveColor'];
+//                    config2.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+//                    config2.circleFillGap = 0.1;
+//                    config2.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+//                    config2.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+//                    config2.waveHeight = 0.3;
+//                    config2.waveCount = 1;
+//
+//                var gauge2 = loadLiquidFillGauge("fillgauge2", 260505847, config2);
+//
+//            }
+//             if(enter_ty.type[j]=='幻想')
+//            {
+//                 //幻想
+//               var config3 = liquidFillGaugeDefaultSettings();
+//                    config3.minValue=money_tp[2]['money_min'];
+//                    config3.maxValue=money_tp[2]['money_max'];
+//                    config3.circleColor = money_tp[2]['circleColor'];
+//                    config3.textColor = money_tp[2]['textColor'];;
+//                    config3.waveTextColor =  money_tp[2]['waveTextColor'];
+//                    config3.waveColor =money_tp[2]['waveColor'];
+//                    config3.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+//                    config3.circleFillGap = 0.1;
+//                    config3.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+//                    config3.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+//                    config3.waveHeight = 0.3;
+//                    config3.waveCount = 1;
+//                var gauge3 = loadLiquidFillGauge("fillgauge3", 60, config3);
+//            }
+//             if(enter_ty.type[j]=='悬念')
+//            {
+//                //悬念
+//                 var config4 = liquidFillGaugeDefaultSettings();
+//                    config4.minValue=money_tp[3]['money_min'];
+//                    config4.maxValue=money_tp[3]['money_max'];
+//                    config4.circleColor = money_tp[3]['circleColor'];
+//                    config4.textColor = money_tp[3]['textColor'];;
+//                    config4.waveTextColor =  money_tp[3]['waveTextColor'];
+//                    config4.waveColor =money_tp[3]['waveColor'];
+//                    config4.circleThickness = 0.1;
+//                    config4.circleFillGap = 0.1;
+//                    config4.textVertPosition = 0.8;
+//                    config4.waveAnimateTime = 3000;
+//                    config4.waveHeight = 0.3;
+//                    config4.waveCount = 1;
+//                var gauge4 = loadLiquidFillGauge("fillgauge4", 260505841, config4);
+//
+//            }
+//             if(enter_ty.type[j]=='惊悚')
+//            {
+//                 //惊悚
+//                   var config5 = liquidFillGaugeDefaultSettings();
+//                    config5.minValue=money_tp[4]['money_min'];
+//                    config5.maxValue=money_tp[4]['money_max'];
+//                    config5.circleColor = money_tp[4]['circleColor'];
+//                    config5.textColor = money_tp[4]['textColor'];
+//                    config5.waveTextColor =  money_tp[4]['waveTextColor'];
+//                    config5.waveColor =money_tp[4]['waveColor'];
+//                    config5.circleThickness = 0.1;
+//                    config5.circleFillGap = 0.1;
+//                    config5.textVertPosition = 0.8;
+//                    config5.waveAnimateTime = 3000;
+//                    config5.waveHeight = 0.3;
+//                    config5.waveCount = 1;
+//                var gauge5 = loadLiquidFillGauge("fillgauge5", 260505851, config5);
+//            }
+//             if(enter_ty.type[j]=='记录')
+//            {
+//                 //记录
+//                var config6 = liquidFillGaugeDefaultSettings();
+//                    config6.minValue=money_tp[5]['money_min'];
+//                    config6.maxValue=money_tp[5]['money_max'];
+//                    config6.circleColor = money_tp[5]['circleColor'];
+//                    config6.textColor = money_tp[5]['textColor'];
+//                    config6.waveTextColor =  money_tp[5]['waveTextColor'];
+//                    config6.waveColor =money_tp[5]['waveColor'];
+//                    config6.circleThickness = 0.1;
+//                    config6.circleFillGap = 0.1;
+//                    config6.textVertPosition = 0.8;
+//                    config6.waveAnimateTime = 3000;
+//                    config6.waveHeight = 0.3;
+//                    config6.waveCount = 1;
+//                var gauge6 = loadLiquidFillGauge("fillgauge6", 260505851, config6);
+//
+//            }
+//             if(enter_ty.type[j]=='战争')
+//            {
+//                //战争
+//                var config7 = liquidFillGaugeDefaultSettings();
+//                    config7.minValue=money_tp[6]['money_min'];
+//                    config7.maxValue=money_tp[6]['money_max'];
+//                    config7.circleColor = money_tp[6]['circleColor'];
+//                    config7.textColor = money_tp[6]['textColor'];
+//                    config7.waveTextColor =  money_tp[6]['waveTextColor'];
+//                    config4.waveColor =money_tp[6]['waveColor'];
+//                    config7.circleThickness = 0.1;
+//                    config7.circleFillGap = 0.1;
+//                    config7.textVertPosition = 0.8;
+//                    config7.waveAnimateTime = 3000;
+//                    config7.waveHeight = 0.3;
+//                    config7.waveCount = 1;
+//                var gauge7 = loadLiquidFillGauge("fillgauge7", 260505851, config7);
+//            }
+//             if(enter_ty.type[j]=='西部')
+//            {
+//                 //西部
+//                 var config8 = liquidFillGaugeDefaultSettings();
+//                     config8.minValue=money_tp[7]['money_min'];
+//                    config8.maxValue=money_tp[7]['money_max'];
+//                    config8.circleColor = money_tp[7]['circleColor'];
+//                    config8.textColor = money_tp[7]['textColor'];
+//                    config8.waveTextColor =  money_tp[7]['waveTextColor'];
+//                    config8.waveColor =money_tp[7]['waveColor'];
+//                    config8.circleThickness = 0.1;
+//                    config8.circleFillGap = 0.1;
+//                    config8.textVertPosition = 0.8;
+//                    config8.waveAnimateTime = 3000;
+//                    config8.waveHeight = 0.3;
+//                    config8.waveCount = 1;
+//                var gauge8 = loadLiquidFillGauge("fillgauge8", 260505851, config8);
+//
+//            }
+//             if(enter_ty.type[j]=='爱情')
+//            {
+//                //爱情
+//                 var config9 = liquidFillGaugeDefaultSettings();
+//                    config9.minValue=money_tp[8]['money_min'];
+//                    config9.maxValue=money_tp[8]['money_max'];
+//                    config9.circleColor = money_tp[8]['circleColor'];
+//                    config9.textColor = money_tp[8]['textColor'];
+//                    config9.waveTextColor =  money_tp[8]['waveTextColor'];
+//                    config9.waveColor =money_tp[8]['waveColor'];
+//                    config9.circleThickness = 0.1;
+//                    config9.circleFillGap = 0.1;
+//                    config9.textVertPosition = 0.8;
+//                    config9.waveAnimateTime = 3000;
+//                    config9.waveHeight = 0.3;
+//                    config9.waveCount = 1;
+//                var gauge9 = loadLiquidFillGauge("fillgauge9", 260505851, config9);
+//
+//            }
+//             if(enter_ty.type[j]=='剧情')
+//            {
+//                //剧情
+//                 var config10 = liquidFillGaugeDefaultSettings();
+//                     config10.minValue=money_tp[9]['money_min'];
+//                    config10.maxValue=money_tp[9]['money_max'];
+//                    config10.circleColor = money_tp[9]['circleColor'];
+//                    config10.textColor = money_tp[9]['textColor'];
+//                    config10.waveTextColor =  money_tp[9]['waveTextColor'];
+//                    config10.waveColor =money_tp[9]['waveColor'];
+//                    config10.circleThickness = 0.1;
+//                    config10.circleFillGap = 0.1;
+//                    config10.textVertPosition = 0.8;
+//                    config10.waveAnimateTime = 3000;
+//                    config10.waveHeight = 0.3;
+//                    config10.waveCount = 1;
+//                var gauge10 = loadLiquidFillGauge("fillgauge10", 260505851, config10);
+//
+//            }
+//             if(enter_ty.type[j]=='恐怖')
+//            {
+//                //恐怖
+//                 var config11 = liquidFillGaugeDefaultSettings();
+//                    config11.minValue=money_tp[10]['money_min'];
+//                    config11.maxValue=money_tp[10]['money_max'];
+//                    config11.circleColor = money_tp[10]['circleColor'];
+//                    config11.textColor = money_tp[10]['textColor'];
+//                    config11.waveTextColor =  money_tp[10]['waveTextColor'];
+//                    config11.waveColor =money_tp[10]['waveColor'];
+//                    config11.circleThickness = 0.1;
+//                    config11.circleFillGap = 0.1;
+//                    config11.textVertPosition = 0.8;
+//                    config11.waveAnimateTime = 3000;
+//                    config11.waveHeight = 0.3;
+//                    config11.waveCount = 1;
+//                var gauge11 = loadLiquidFillGauge("fillgauge11", 260505851, config11);
+//            }
+//             if(enter_ty.type[j]=='动作')
+//            {
+//                 //动作
+//                 var config12 = liquidFillGaugeDefaultSettings();
+//                     config12.minValue=money_tp[11]['money_min'];
+//                    config12.maxValue=money_tp[11]['money_max'];
+//                    config12.circleColor = money_tp[11]['circleColor'];
+//                    config12.textColor = money_tp[11]['textColor'];
+//                    config12.waveTextColor =  money_tp[11]['waveTextColor'];
+//                    config12.waveColor =money_tp[11]['waveColor'];
+//                    config12.circleThickness = 0.1;
+//                    config12.circleFillGap = 0.1;
+//                    config12.textVertPosition = 0.8;
+//                    config12.waveAnimateTime = 3000;
+//                    config12.waveHeight = 0.3;
+//                    config12.waveCount = 1;
+//                var gauge12 = loadLiquidFillGauge("fillgauge12", 260505851, config12);
+//
+//            }
+//             if(enter_ty.type[j]=='科幻')
+//            {
+//                 // 科幻
+//                 var config13 = liquidFillGaugeDefaultSettings();
+//                    config13.minValue=money_tp[12]['money_min'];
+//                    config13.maxValue=money_tp[12]['money_max'];
+//                    config13.circleColor = money_tp[12]['circleColor'];
+//                    config13.textColor = money_tp[12]['textColor'];
+//                    config13.waveTextColor =  money_tp[12]['waveTextColor'];
+//                    config13.waveColor =money_tp[12]['waveColor'];
+//                    config13.circleThickness = 0.1;
+//                    config13.circleFillGap = 0.1;
+//                    config13.textVertPosition = 0.8;
+//                    config13.waveAnimateTime = 3000;
+//                    config13.waveHeight = 0.3;
+//                    config13.waveCount = 1;
+//                var gauge13 = loadLiquidFillGauge("fillgauge13", 260505851, config13);
+//
+//            }
+//             if(enter_ty.type[j]=='音乐')
+//            {
+//                //  音乐
+//                 var config14 = liquidFillGaugeDefaultSettings();
+//                     config14.minValue=money_tp[13]['money_min'];
+//                    config14.maxValue=money_tp[13]['money_max'];
+//                    config14.circleColor = money_tp[13]['circleColor'];
+//                    config14.textColor = money_tp[13]['textColor'];
+//                    config14.waveTextColor =  money_tp[13]['waveTextColor'];
+//                    config14.waveColor =money_tp[13]['waveColor'];
+//                    config14.circleThickness = 0.1;
+//                    config14.circleFillGap = 0.1;
+//                    config14.textVertPosition = 0.8;
+//                    config14.waveAnimateTime = 3000;
+//                    config14.waveHeight = 0.3;
+//                    config14.waveCount = 1;
+//                var gauge14 = loadLiquidFillGauge("fillgauge14", 260505851, config14);
+//            }
+//             if(enter_ty.type[j]=='家庭')
+//            {
+//                 //家庭
+//                 var config15 = liquidFillGaugeDefaultSettings();
+//                    config15.minValue=money_tp[14]['money_min'];
+//                    config15.maxValue=money_tp[14]['money_max'];
+//                    config15.circleColor = money_tp[14]['circleColor'];
+//                    config15.textColor = money_tp[14]['textColor'];
+//                    config15.waveTextColor =  money_tp[14]['waveTextColor'];
+//                    config15.waveColor =money_tp[14]['waveColor'];
+//                    config15.circleThickness = 0.1;
+//                    config15.circleFillGap = 0.1;
+//                    config15.textVertPosition = 0.8;
+//                    config15.waveAnimateTime = 3000;
+//                    config15.waveHeight = 0.3;
+//                    config15.waveCount = 1;
+//                var gauge15 = loadLiquidFillGauge("fillgauge15", 260505851, config15);
+//
+//            }
+//             if(enter_ty.type[j]=='犯罪')
+//            {
+//                //犯罪
+//                 var config16 = liquidFillGaugeDefaultSettings();
+//                     config16.minValue=money_tp[15]['money_min'];
+//                    config16.maxValue=money_tp[15]['money_max'];
+//                    config16.circleColor = money_tp[15]['circleColor'];
+//                    config16.textColor = money_tp[15]['textColor'];
+//                    config16.waveTextColor =  money_tp[15]['waveTextColor'];
+//                    config16.waveColor =money_tp[15]['waveColor'];
+//                    config16.circleThickness = 0.1;
+//                    config16.circleFillGap = 0.1;
+//                    config16.textVertPosition = 0.8;
+//                    config16.waveAnimateTime = 3000;
+//                    config16.waveHeight = 0.3;
+//                    config16.waveCount = 1;
+//                var gauge16 = loadLiquidFillGauge("fillgauge16", 260505851, config16);
+//            }
+        }
+         console.log(xh);
+//         var gauge1 = loadLiquidFillGauge("fillgauge1",config1.value, config1);
         })
     })
 </script>
