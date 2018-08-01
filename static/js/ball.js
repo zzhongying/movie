@@ -162,11 +162,6 @@ function loadLiquidFillGauge(elementId, value, config) {
         .attr("cy", radius)
         .attr("r", fillCircleRadius);
 
-
-    // fillCircleGroup.transition()
-    //     .duration(config.waveRiseTime)
-    //     .attr("fill",config.nextwaveColor);
-
     // 波浪重叠的文字。
     var text2 = fillCircleGroup.append("text")
         .text(textRounder(textStartValue) + percentText)

@@ -230,7 +230,6 @@ def tabs():
                 act3_like += int(act3[i].act_one_like)
                 i = i + 1
             table_massage['act3_like'] = act3_like / len(act3)
-        #print(enter)
         return render_template('index.html')
 
 
