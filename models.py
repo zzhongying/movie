@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
+
 class xunlian(db.Model):
     __tablename__='xl'
     name= db.Column(db.String(255), primary_key=True)

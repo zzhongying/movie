@@ -15,7 +15,6 @@ def Create_score_model(X_test):
     pipe_GBR.fit(X, Y.ravel())
     return pipe_GBR.predict(X_test)
 
-
 def Create_gross_model(x_test):
     df = read_csv('df.csv', encoding='utf-8')
     sc = StandardScaler()

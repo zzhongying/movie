@@ -232,7 +232,6 @@ def tabs():
             table_massage['act3_like'] = act3_like / len(act3)
         return render_template('index.html')
 
-
 @app.route('/ball/')
 def ball():
     return render_template('ball.html')
