@@ -38,7 +38,6 @@
                         .domain([-5,10])   //刻度范围,回报率,外圈
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
-
    var segDisplay = iopctrl.segdisplay()
                 .width(80)  //蓝色数字的宽度
                 .digitCount(5)   //蓝色数字的位数

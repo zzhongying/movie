@@ -32,7 +32,6 @@ function liquidFillGaugeDefaultSettings() {
         value: 0
     };
 }
-
 //绑定
 function loadLiquidFillGauge(elementId, value, config) {
     if (config == null) config = liquidFillGaugeDefaultSettings();
