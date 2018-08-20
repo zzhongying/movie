@@ -219,7 +219,6 @@ function loadLiquidFillGauge(elementId, value, config) {
                 animateWave(config.waveAnimateTime);
             });
     }
-
     //更新函数
     function GaugeUpdater() {
         this.update = function (value) {
