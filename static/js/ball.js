@@ -25,6 +25,10 @@ function liquidFillGaugeDefaultSettings() {
         nexttextColor: "#ca2e33",
         waveTextColor: "#f8e323", // 当波形重叠时，值文本的颜色。#A4DBf8
         nextwaveTextColor:"#812572",
+        piao:"#812572",
+        nextpiao:"#812572",
+        pingf:"#812572",
+        nextping:"#812572",
         value: 0
     };
 }
@@ -132,7 +136,6 @@ function loadLiquidFillGauge(elementId, value, config) {
         .attr("font-size", textPixels + "px")
         .style("fill", config.textColor)
         .attr('transform', 'translate(' + radius + ',' + textRiseScaleY(config.textVertPosition) + ')');
-
 
     // 削波面积。
     var clipArea = d3.svg.area()
@@ -306,6 +309,7 @@ function loadLiquidFillGauge(elementId, value, config) {
             waveGroup.transition()
                 .duration(config.waveRiseTime)
                 .attr('transform', 'translate(' + waveGroupXPosition + ',' + newHeight + ')')
+
 
         }
     }

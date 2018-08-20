@@ -74,7 +74,7 @@
         //console.log(massage.invest);
         segDisplay.value(86686);  //内盘蓝色数字的值
         segDisplay1.value(23333);  //外盘蓝色数字的值
-        gauge.value(massage.invest/10000);   //内盘指针当前指向的值，投资技术
+        gauge.value(massage.invest/10000);   //内盘指针当前指向的值，投资级数
         gauge1.value(5);   //外盘指针当前指向的值,回报率
 
      });
