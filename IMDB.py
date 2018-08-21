@@ -186,8 +186,6 @@ def massage():
     #print(table_massage)
     return jsonify(table_massage)
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def tabs():
     if request.method == 'GET':
