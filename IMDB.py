@@ -240,8 +240,6 @@ def tabs():
 
         return render_template('index.html')
 
-
-
 @app.route('/ball/')
 def ball():
     return render_template('ball.html')
