@@ -1,18 +1,17 @@
 from flask import Flask,render_template,request, jsonify,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import sessionmaker
-from flask_cors import *
-from sqlalchemy.ext.declarative import declarative_base
+from imdb_score_model import Create_score_model,Create_gross_model,Type_conversion
 import config
-from sqlalchemy import distinct
 from models import xunlian
-import contextlib
 
 app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
-d_type = [{'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CDAA7D',
+d_type = [
+          {'en': 'Action', 'zh': '动作', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CD2626',
+          'textColor': '#8B1A1A', 'waveTextColor': '#FFFAFA', 'waveColor': '#CD2626'},
+          {'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CDAA7D',
            'textColor': '#8B7E66', 'waveTextColor': '#EED8AE', 'waveColor': '#CDAA7D'},
           {'en': 'Comedy', 'zh': '喜剧', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#178BCA',
            'textColor': '#045681', 'waveTextColor': '#A4DBf8', 'waveColor': '#178BCA'},
@@ -34,8 +33,6 @@ d_type = [{'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_
            'textColor': '#668B8B', 'waveTextColor': '#B0E0E6', 'waveColor': '#20B2AA'},
           {'en': 'Horror', 'zh': '恐怖', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#000000',
            'textColor': '#000000', 'waveTextColor': '#BEBEBE', 'waveColor': '#000000'},
-          {'en': 'Action', 'zh': '动作', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CD2626',
-           'textColor': '#8B1A1A', 'waveTextColor': '#FFFAFA', 'waveColor': '#CD2626'},
           {'en': 'Sci-Fi', 'zh': '科幻', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#FFD700',
            'textColor': '#8B7500', 'waveTextColor': '#FFFAFA', 'waveColor': '#FFD700'},
           {'en': 'Music', 'zh': '音乐', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#9932CC',
@@ -47,6 +44,8 @@ d_type = [{'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_
           ]
 table_massage={}
 enter={}
+list=[]
+list_1=[]
 
 @app.route('/data/', methods=['GET'])
 def data():
@@ -177,7 +176,6 @@ def data():
 def tabs_data():
     Level_1=xunlian.query.filter(xunlian.level).distinct().all()
     l_1=list(set(Level_1))
-    print(l_1)
     return render_template('index.html')
 
 #返回tabs页面中的内容
@@ -228,7 +226,21 @@ def tabs():
                 act3_like += int(act3[i].act_one_like)
                 i = i + 1
             table_massage['act3_like'] = act3_like / len(act3)
+
+        list.append(table_massage['invest'])
+        list.append(table_massage['dir_like'])
+        list.append(request.form.get('time'))
+        list.append(request.form.get('popular'))
+        list.append(table_massage['type'])
+        print(list)
+        list_1=list
+        print(list_1)
+        print(Create_gross_model(list_1))    #票房
+        print(Create_score_model(list))      #评分
+
         return render_template('index.html')
+
+
 
 @app.route('/ball/')
 def ball():
