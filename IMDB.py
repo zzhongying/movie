@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request, jsonify,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from imdb_score_model import Create_score_model,Create_gross_model,Type_conversion
+from imdb_score_model import Create_score_model,Type_conversion
 import config
 from models import xunlian
 
@@ -232,12 +232,7 @@ def tabs():
         list.append(request.form.get('time'))
         list.append(request.form.get('popular'))
         list.append(table_massage['type'])
-        print(list)
-        list_1=list
-        print(list_1)
-        print(Create_gross_model(list_1))    #票房
-        print(Create_score_model(list))      #评分
-
+        table_massage['result']=Create_score_model(list)
         return render_template('index.html')
 
 @app.route('/ball/')
