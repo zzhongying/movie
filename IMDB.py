@@ -67,72 +67,109 @@ def data():
     money_fam=[]
     money_cri=[]
 
+    grade_adv = []
+    grade_com = []
+    grade_fan = []
+    grade_mys = []
+    grade_thr = []
+    grade_doc = []
+    grade_war = []
+    grade_wes = []
+    grade_rom = []
+    grade_dra = []
+    grade_hor = []
+    grade_act = []
+    grade_sci = []
+    grade_mus = []
+    grade_fam = []
+    grade_cri = []
+
+
     while len(ALL) > 0:
         dataset = ALL.pop()
         types = dataset.type.split("|")    #字段拆分
         like = dataset.like_all
         money=dataset.Box_office
+        grade=dataset.IMDB
         if like == '':
             like = 0
 
         if money=='':
             money=0
-        # print(like)
+
+        if grade=='':
+            grade=0
+
         like = int(like)
         money=int(money)
-        # print(type(like))
-        # print(repr(like))
-        #print(money)
+        # grade=int(grade)
+
         while len(types):
             count = types.pop()
             if count == d_type[0]["en"]:
                 d_type[0]["like"] += like
                 money_adv.append(money)
+                grade_adv.append(grade)
             elif count == d_type[1]["en"]:
                 d_type[1]["like"] += like
                 money_com.append(money)
+                grade_com.append(grade)
             elif count == d_type[2]["en"]:
                 d_type[2]["like"] += like
                 money_fan.append(money)
+                grade_fan.append(grade)
             elif count == d_type[3]["en"]:
                 d_type[3]["like"] += like
                 money_mys.append(money)
+                grade_mys.append(grade)
             elif count == d_type[4]["en"]:
                 d_type[4]["like"] += like
                 money_thr.append(money)
+                grade_thr.append(grade)
             elif count == d_type[5]["en"]:
                 d_type[5]["like"] += like
                 money_doc.append(money)
+                grade_doc.append(grade)
             elif count == d_type[6]["en"]:
                 d_type[6]["like"] += like
                 money_war.append(money)
+                grade_war.append(grade)
             elif count == d_type[7]["en"]:
                 d_type[7]["like"] += like
                 money_wes.append(money)
+                grade_wes.append(grade)
             elif count == d_type[8]["en"]:
                 d_type[8]["like"] += like
                 money_rom.append(money)
+                grade_rom.append(grade)
             elif count == d_type[9]["en"]:
                 d_type[9]["like"] += like
                 money_dra.append(money)
+                grade_dra.append(grade)
             elif count == d_type[10]["en"]:
                 d_type[10]["like"] += like
                 money_hor.append(money)
+                grade_hor.append(grade)
             elif count == d_type[11]["en"]:
                 d_type[11]["like"] += like
                 money_act.append(money)
+                grade_act.append(grade)
             elif count == d_type[12]["en"]:
                 d_type[12]["like"] += like
                 money_sci.append(money)
+                grade_sci.append(grade)
             elif count == d_type[13]["en"]:
                 d_type[13]["like"] += like
                 money_mus.append(money)
+                grade_mus.append(grade)
             elif count == d_type[14]["en"]:
                 d_type[14]["like"] += like
                 money_fam.append(money)
+                grade_fam.append(grade)
             elif count == d_type[15]["en"]:
                 d_type[15]["like"] += like
                 money_cri.append(money)
+                grade_cri.append(grade)
 
     #取各种类型中的票房最大值和最小值
     d_type[0]['money_max']=max(money_adv)
@@ -168,6 +205,42 @@ def data():
     d_type[13]['money_min'] = min(money_mus)
     d_type[14]['money_min'] = min(money_fam)
     d_type[15]['money_min'] = min(money_cri)
+
+    d_type[0]['grade_max'] = max(grade_adv)
+    d_type[1]['grade_max'] = max(grade_com)
+    d_type[2]['grade_max'] = max(grade_fan)
+    d_type[3]['grade_max'] = max(grade_mys)
+    d_type[4]['grade_max'] = max(grade_thr)
+    d_type[5]['grade_max'] = max(grade_doc)
+    d_type[6]['grade_max'] = max(grade_war)
+    d_type[7]['grade_max'] = max(grade_wes)
+    d_type[8]['grade_max'] = max(grade_rom)
+    d_type[9]['grade_max'] = max(grade_dra)
+    d_type[10]['grade_max'] = max(grade_hor)
+    d_type[11]['grade_max'] = max(grade_act)
+    d_type[12]['grade_max'] = max(grade_sci)
+    d_type[13]['grade_max'] = max(grade_mus)
+    d_type[14]['grade_max'] = max(grade_fam)
+    d_type[15]['grade_max'] = max(grade_cri)
+
+    d_type[0]['grade_min'] = min(grade_adv)
+    d_type[1]['grade_min'] = min(grade_com)
+    d_type[2]['grade_min'] = min(grade_fan)
+    d_type[3]['grade_min'] = min(grade_mys)
+    d_type[4]['grade_min'] = min(grade_thr)
+    d_type[5]['grade_min'] = min(grade_doc)
+    d_type[6]['grade_min'] = min(grade_war)
+    d_type[7]['grade_min'] = min(grade_wes)
+    d_type[8]['grade_min'] = min(grade_rom)
+    d_type[9]['grade_min'] = min(grade_dra)
+    d_type[10]['grade_min'] = min(grade_hor)
+    d_type[11]['grade_min'] = min(grade_act)
+    d_type[12]['grade_min'] = min(grade_sci)
+    d_type[13]['grade_min'] = min(grade_mus)
+    d_type[14]['grade_min'] = min(grade_fam)
+    d_type[15]['grade_min'] = min(grade_cri)
+
+
     #print(table_massage)
     return jsonify(d_type)
 

@@ -35,7 +35,7 @@
                 .tickSize(10, 8, 10)
                 .tickPadding(10)   //数字距离刻度的距离
                 .scale(d3.scale.linear()
-                        .domain([-5,10])   //刻度范围,回报率,外圈
+                        .domain([-5,15])   //刻度范围,回报率,外圈
                         .range([-3*Math.PI/4, 3*Math.PI/4]));  //刻度盘的周长
 
    var segDisplay = iopctrl.segdisplay()

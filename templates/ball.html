@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -20,17 +20,14 @@
     d3.json("/data/", function (error, money_tp) {
         if (error)
             console.log(error);
-        console.log(money_tp);
         d3.json("/massage/", function (error, enter_ty) {
             if (error)
                 console.log(error);
-            console.log(enter_ty);
+            console.log(enter_ty.result);
 
             var len = enter_ty.type.length;
             var next=[];
             var i = 0,p=0;
-            test = [350000000,300000000,110000000];
-            grade=[6.5,4.3,5.8];
             circlecolor=[];
             wavetextcolor=[];
             wavecolor=[];
@@ -40,7 +37,7 @@
             function action() {
                 if (i < len) {
                     for (var k = 0; k < 16; k++) {
-                        if (enter_ty.type[i] == money_tp[k].zh)
+                        if (enter_ty.type[i] == money_tp[k].en)
                         {
                             next[p]=k;
                             textcolor[p]=money_tp[k]['textColor'];
@@ -60,8 +57,10 @@
                     config1.textColor =textcolor[i];
                     config1.waveTextColor =wavetextcolor[i];
                     config1.waveColor =wavecolor[i];
-                    config2.minValue =0;
-                    config2.maxValue = 10;
+                    config2.minValue=money_tp[next[x]]['grade_min'];
+                    config2.maxValue=money_tp[next[x]]['grade_max'];
+                    console.log(money_tp[next[x]]['grade_min']);
+                    console.log(money_tp[next[x]]['grade_max']);
                     config2.circleColor =circlecolor[i];
                     config2.textColor =textcolor[i];
                     config2.waveTextColor =wavetextcolor[i];
@@ -96,14 +95,14 @@
                     config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
                     config1.waveHeight = 0.3;
                     config1.waveCount = 1;
-                    config1.value = test[i];
+                    config1.value =enter_ty.result[1];
                     config2.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
                     config2.circleFillGap = 0.1;
                     config2.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
                     config2.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
                     config2.waveHeight = 0.3;
                     config2.waveCount = 1;
-                    config2.value = grade[i];
+                    config2.value =enter_ty.result[0];
                 }
                 }
                 p++;

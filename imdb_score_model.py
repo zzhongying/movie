@@ -25,20 +25,6 @@ def Create_score_model(x_test):
     return result
 
 
-# def Create_gross_model(x_test):
-#     x_test.extend(Type_conversion(x_test.pop(-1)))
-#     x_test=DataFrame(x_test).T
-#     df = read_csv('data.csv', encoding='utf-8')
-#     sc = StandardScaler()
-#     Y = sc.fit_transform(df['Box_office'].values.reshape(-1, 1))
-#     df = df.drop(['IMDB', 'Box_office'], axis=1)
-#     X = df
-#     pipe_GBR = Pipeline([('ssc', StandardScaler()),
-#                          ('GBR', GradientBoostingRegressor(n_estimators=100))])
-#     pipe_GBR.fit(X, Y.ravel())
-#     pre = pipe_GBR.predict(x_test)
-#     return sc.inverse_transform(pre)
-
 def Type_conversion(test):
     genres = ['Action',
               'Adventure',
